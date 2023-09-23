@@ -1,0 +1,117 @@
+---
+title: "p8105_HW1_cw3555"
+author: "Eunice Wang"
+date: "2023-09-23"
+output: github_document
+---
+
+# Problem 1 
+
+## Load library packages and dataset for later use:
+
+```{r, message=FALSE}
+library(moderndive)
+library(tidyverse)
+data("early_january_weather")
+```
+
+## Look at data:
+
+A simple look at the dataset:
+```{r}
+str(early_january_weather)
+```
+
+Here's a short description of the dataset:
+
+The _early_january_weather_ dataset contains 15 varaibles: `r colnames(early_january_weather)`.
+
+The _early_january_weather_ dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns. 
+
+Here're some important data summary of the dataset:
+
+```{r}
+skimr::skim(early_january_weather)
+```
+
+The mean temperature found in the _early_january_weather_ dataset is `r mean(early_january_weather$temp)` Fahrenheit.
+
+## Make a scatter plot of temp vs time_hour and save it
+
+Next, a scatter plot was made to show relationship between temperature, time, and humidity levels.
+
+```{r}
+ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) + geom_point()
+ggsave("scatter_plot.pdf", height = 4, width = 6)
+```
+
+## Describe the scatter plot:
+
+Temperature fluctuates as time increases. For the overall trend, temperature seems to have a relatively positive relationship with time. And for humidity, it also fluctuates and have a apparent huge decrease around Jan.14th when temperature increases.
+
+# Problem 2
+
+## Create a data frame:
+
+Create a dataframe comprised of:
+
+* a random sample of size 10 from a standard normal variable
+* a logical vector indicating whether elements of the sample are greater than 0
+* a character vector of length 10
+* a factor vector of length 10, with 3 different factor “levels”
+
+```{r}
+example_df = 
+    tibble(
+    ran_samp = rnorm(10, mean = 0, sd = 1),
+    log_vec = ran_samp > 0,
+    vec_charac = c("My", "name", "is", "Eunice", "Wang", "I", "am","a","new","student" ),
+    vec_factor = factor(c("ba","ba","ba","ms","ms","ms","phd","phd","phd","phd"))
+  )
+```
+
+The data frame generated is:
+```{r}
+example_df
+```
+
+## Consider the mean value of each variable:
+
+* For the _ran_samp_, it has mean values, which is `r mean(pull(example_df, ran_samp)) `
+```{r}
+mean(pull(example_df, ran_samp))
+```
+
+* For the _log_vec_, it has mean values, , which is `r mean(pull(example_df, log_vec)) `
+```{r}
+mean(pull(example_df, log_vec))
+```
+
+* For the _vec_charac_, means are not calculable
+```{r}
+mean(pull(example_df, vec_charac))
+```
+
+* For the _vec_factor_, means are not calculable
+```{r}
+mean(pull(example_df, vec_factor))
+```
+
+We can see that means are calculable for the random sample and logical vector. However, means are not calculable for the character vector and factor vector, shown by the warning information, since they are neither numeric nor logical.
+
+## Converting variables to numeric:
+
+Convert the logical, character, and factor variables to numeric using `as.numeric` function.
+
+```{r, eval=FALSE}
+converted_log_vec = as.numeric(pull(example_df, log_vec))
+converted_vec_charac = as.numeric(pull(example_df, vec_charac))
+converted_vec_factor = as.numeric(pull(example_df, vec_factor))
+```
+
+* The logical vector variable can be converted to numeric, with the value `TRUE` = 1 and `FALSE` = 0.
+* The character vector variable cannot be converted to numeric, and `NA` is introduced by coercion as a substitute.
+* The vector factor variable can be converted to numeric, with the three levels converting to different numbers.
+
+
+
