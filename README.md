@@ -1,1 +1,3 @@
-# p8105_hw1_cw3555
+# p8105 hw1 cw3555
+
+this is for p8105 hw1
