@@ -34,7 +34,7 @@ Here're some important data summary of the dataset:
 skimr::skim(early_january_weather)
 ```
 
-The mean temperature found in the _early_january_weather_ dataset is `r mean(early_january_weather$temp)` Fahrenheit.
+The mean temperature found in the _early_january_weather_ dataset is `r mean(pull(early_january_weather,temp))` Fahrenheit.
 
 ## Make a scatter plot of temp vs time_hour and save it
 
